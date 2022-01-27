@@ -13,6 +13,7 @@ import TheoryDescScreen from "./screens/desc/TheoryDescScreen"; //引入
 import ErrorDescScreen from "./screens/desc/ErrorDescScreen"; //引入
 import ExampleDescScreen from "./screens/desc/ExampleDescScreen"; //引入
 import QuestionDescScreen from "./screens/desc/QuestionDescScreen"; //引入
+import InfoScreen from "./screens/info/InfoScreen"; //引入
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
@@ -22,7 +23,7 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   return (
     <Tab.Navigator
-      // tabBarOptions={{ activeTintColor: "#972F97", inactiveTintColor: "gray" }}
+      tabBarOptions={{ activeTintColor: "#972F97", inactiveTintColor: "gray" }}
       screenOptions={({ route }) => ({
         activeTintColor: "#972F97",
         inactiveTintColor: "gray",
@@ -98,18 +99,37 @@ export default function App() {
               <Stack.Screen
                 name="TheoryDescScreen"
                 component={TheoryDescScreen}
+                options={{
+                  title: '',
+                }}
               />
               <Stack.Screen
                 name="ErrorDescScreen"
                 component={ErrorDescScreen}
+                options={{
+                  title: '',
+                }}
               />
               <Stack.Screen
                 name="ExampleDescScreen"
                 component={ExampleDescScreen}
+                options={{
+                  title: '',
+                }}
               />
               <Stack.Screen
                 name="QuestionDescScreen"
                 component={QuestionDescScreen}
+                options={{
+                  title: '',
+                }}
+              />
+               <Stack.Screen
+                name="InfoScreen"
+                component={InfoScreen}
+                options={{
+                  title: '',
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>

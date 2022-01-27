@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
 const copy = `
-## 代码区域
+实际开发中,我们针对react的性能优化需要做一些特殊的处理,以下是一些常用的技术路线;
 \`\`\` js
 import React from "react"
 import { Upload, Modal } from 'antd';
@@ -26,7 +26,6 @@ function getBase64(file) {
         reader.onerror = error => reject(error);
     });
 }
-
 class PictureCom extends React.Component {
     state = {
         previewVisible: false,
@@ -78,16 +77,7 @@ export default PictureCom
 const TheoryDescScreen = () => {
   return (
     <View>
-      <ScrollView>
-        <TextInput
-          style={styles.input}
-          placeholder="输入姓名"
-          onChangeText={(value) => {
-            setValue(value);
-          }}
-          keyboardType="phone-pad" //指定键盘类型;
-          editable={true} //可编辑状态
-        ></TextInput>
+      <ScrollView style={styles.container}>
         <Text style={{fontSize:20}}>React性能优化方案</Text>
         <Text>作者:杨磊</Text>
         <Markdown style={styles} mergeStyle={true}>
@@ -97,7 +87,9 @@ const TheoryDescScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
-
+const styles = StyleSheet.create({
+  container:{
+    padding:10
+  }
+});
 export default TheoryDescScreen;

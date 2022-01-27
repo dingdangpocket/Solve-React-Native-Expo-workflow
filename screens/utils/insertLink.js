@@ -51,13 +51,13 @@ export class InsertLinkModal extends React.PureComponent {
                 onBackdropPress={() => this.setModalVisible(false)}>
                 <View style={[styles.dialog, {backgroundColor}]}>
                     <View style={styles.linkTitle}>
-                        <Text style={{color}}>Insert Link</Text>
+                        <Text style={{color}}>添加链接</Text>
                     </View>
                     <View style={styles.item}>
                         <TextInput
                             style={[styles.input, {color}]}
                             placeholderTextColor={placeholderColor}
-                            placeholder={'title'}
+                            placeholder={'链接标题:仓库'}
                             onChangeText={(text) => this.setTitle(text)}
                         />
                     </View>
@@ -65,16 +65,16 @@ export class InsertLinkModal extends React.PureComponent {
                         <TextInput
                             style={[styles.input, {color}]}
                             placeholderTextColor={placeholderColor}
-                            placeholder="http(s)://"
+                            placeholder="链接地址:https://github.com/"
                             onChangeText={(text) => this.setURL(text)}
                         />
                     </View>
                     <View style={styles.buttonView}>
                         <TouchableOpacity style={styles.btn} onPress={() => this.setModalVisible(false)}>
-                            <Text style={styles.text}>Cancel</Text>
+                            <Text style={styles.text}>取消</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btn} onPress={this.onDone}>
-                            <Text style={styles.text}>OK</Text>
+                            <Text style={styles.text}>确认</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
