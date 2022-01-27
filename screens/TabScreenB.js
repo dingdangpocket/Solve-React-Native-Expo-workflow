@@ -95,6 +95,7 @@ const ScreenB = ({ navigation }) => {
     { id: 4, content: "更多" },
   ]);
   //选项列表
+  
   //获得选项;
   const [current, setCurrent] = useState(0);
   const get = (optionId) => {
