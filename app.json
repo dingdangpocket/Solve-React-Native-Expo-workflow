@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "mydemo",
-    "slug": "mydemo",
+    "name": "solve",
+    "slug": "solve",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/bgsolve.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,10 +23,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/iconSolve.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.niegang50.mydemo"
+      "package": "com.niegang50.solve"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

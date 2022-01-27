@@ -1,4 +1,4 @@
-import React, { Profiler, useState } from "react";
+import React, { Profiler, useState, useRef, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -88,11 +88,11 @@ const ScreenB = ({ navigation }) => {
   //测试数据;
   //选项列表
   const [optionList, setOptionList] = useState([
-    { id: 0, content: "动态" },
+    { id: 0, content: "我的动态" },
     { id: 1, content: "发布" },
     { id: 2, content: "收藏" },
     { id: 3, content: "笔记" },
-    { id: 4, content: "其他" },
+    { id: 4, content: "更多" },
   ]);
   //选项列表
   //获得选项;
@@ -100,9 +100,11 @@ const ScreenB = ({ navigation }) => {
   const get = (optionId) => {
     console.log("点击的id", optionId);
     setCurrent(optionId);
+    onPressTouch();
   };
   //获得选项;
-  //跳转内容;
+
+  //跳转内容页面详情;
   const LinkToDesc = (contentType) => {
     if (contentType == "theory") {
       navigation.navigate("TheoryDescScreen");
@@ -117,7 +119,7 @@ const ScreenB = ({ navigation }) => {
       navigation.navigate("QuestionDescScreen");
     }
   };
-  //跳转内容;
+  //跳转内容页面详情;
   const editInfo = () => {
     navigation.navigate("InfoScreen");
   };
@@ -131,141 +133,166 @@ const ScreenB = ({ navigation }) => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
     console.log(pickerResult);
   };
+
+  //scrollView跳转到指定位置
+  let MainHeight = Dimensions.get("window").height;
+  let MainWidth = Dimensions.get("window").width;
+  const scrollRef = useRef();
+  const onPressTouch = () => {
+    scrollRef.current?.scrollTo({
+      y: MainHeight * 0.32,
+      animated: true,
+    });
+  };
+  //scrollView跳转到指定位置
   return (
-    <ScrollView
-      style={styles.container}
-      stickyHeaderIndices={[1]}
-      onScroll={(event) => {
-        {
-          console.log(event.nativeEvent.contentOffset.x); //水平滚动距离
-          console.log(event.nativeEvent.contentOffset.y); //垂直滚动距离
-          if (event.nativeEvent.contentOffset.y > 213) {
-            console.log("导航吸顶");
+    <>
+      <ScrollView
+        ref={scrollRef}
+        style={styles.container}
+        stickyHeaderIndices={[1]}
+        onScroll={(event) => {
+          {
+            console.log(event.nativeEvent.contentOffset.x); //水平滚动距离
+            console.log(event.nativeEvent.contentOffset.y); //垂直滚动距离
+            if (event.nativeEvent.contentOffset.y > 213) {
+              console.log("导航吸顶");
+            }
           }
-        }
-      }}
-    >
-      <View style={styles.CardCtr}>
-        <View style={styles.Line1}>
-          <Image
-            style={styles.avatorContainer}
-            source={require("../assets/images/123.jpg")}
-            resizeMode="cover"
-          ></Image>
-          <View style={styles.infoCtr}>
-            <Text style={{ fontSize: 16 }}>杨磊</Text>
-            <Text style={{ fontSize: 12 }}>前端开发</Text>
-            <Text style={{ fontSize: 10 }}>写代码、摸鱼、🚴</Text>
+        }}
+      >
+        <View style={styles.CardCtr}>
+          <View style={styles.Line1}>
+            <Image
+              style={styles.avatorContainer}
+              source={require("../assets/images/123.jpg")}
+              resizeMode="cover"
+            ></Image>
+            <View style={styles.infoCtr}>
+              <Text style={{ fontSize: 16 }}>杨磊</Text>
+              <Text style={{ fontSize: 12 }}>前端开发</Text>
+              <Text style={{ fontSize: 10 }}>写代码、摸鱼、🚴</Text>
+            </View>
+            <View style={styles.btnCtr}>
+              <TouchableOpacity style={styles.btn} onPress={() => editInfo()}>
+                <Text style={{ fontSize: 16 }}>编辑</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.btnCtr}>
-            <TouchableOpacity style={styles.btn} onPress={() => editInfo()}>
-              <Text style={{ fontSize: 16 }}>编辑</Text>
-            </TouchableOpacity>
+          <View style={styles.Line2}>
+            <View style={styles.box}>
+              <Text>关注</Text>
+            </View>
+            <View style={styles.box}>
+              <Text>关注者</Text>
+            </View>
+            <View style={styles.box}>
+              <Text>solve</Text>
+            </View>
+            <View style={styles.box}>
+              <Text>推荐</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.Line2}>
-          <View style={styles.box}>
-            <Text>关注</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>关注者</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>solve</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>推荐</Text>
-          </View>
-        </View>
-      </View>
-      <View horizontal={false}>
-        <View style={styles.optionArea}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            style={styles.optionAreaLeft}
-          >
-            {optionList.map((item) => {
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  activeOpacity={0.8}
-                  onPress={() => get(item.id)}
-                >
-                  <View
-                    style={
-                      item.id == current
-                        ? styles.optionBox
-                        : styles.optionBoxUnActived
-                    }
+
+        <View horizontal={false}>
+          <View style={styles.optionArea}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={styles.optionAreaLeft}
+            >
+              {optionList.map((item) => {
+                return (
+                  <TouchableOpacity
+                    key={item.id}
+                    activeOpacity={0.8}
+                    onPress={() => get(item.id)}
                   >
-                    <Text
+                    <View
                       style={
                         item.id == current
-                          ? styles.textDefault
-                          : styles.textUnActived
+                          ? styles.optionBox
+                          : styles.optionBoxUnActived
                       }
                     >
-                      {item.content}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-        </View>
-      </View>
-
-      {current == 0 ? (
-        <ScrollView style={styles.CardListContainer}>
-          <View style={styles.focusListContainer}>
-            {cardData.map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                      <Text
+                        style={
+                          item.id == current
+                            ? styles.textDefault
+                            : styles.textUnActived
+                        }
+                      >
+                        {item.content}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
           </View>
-        </ScrollView>
-      ) : null}
-      {current == 1 ? (
-        <View style={styles.optionBoxContainer}>
-          <TouchableOpacity
-            onPress={openImagePickerAsync}
-            style={styles.button}
-          >
-            <Text style={styles.buttonText}>访问相册</Text>
-          </TouchableOpacity>
         </View>
-      ) : null}
-      {current == 2 ? (
-        <View style={styles.optionBoxContainer}>
-          <Text>收藏</Text>
-        </View>
-      ) : null}
-      {current == 3 ? (
-        <View style={styles.optionBoxContainer}>
-          <Text>笔记</Text>
-        </View>
-      ) : null}
-      {current == 4 ? (
-        <View style={styles.optionBoxContainer}>
-          <Text>其他</Text>
-        </View>
-      ) : null}
-      {current == 5 ? (
-        <View style={styles.optionBoxContainer}>
-          <Text>问题</Text>
-        </View>
-      ) : null}
-    </ScrollView>
+        {current == 0 ? (
+          <ScrollView>
+            <View style={styles.focusListContainer}>
+              {cardData.map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
+        ) : null}
+        {current == 1 ? (
+          <ScrollView>
+            <View style={styles.optionBoxContainer}>
+              <TouchableOpacity
+                onPress={openImagePickerAsync}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText}>访问相册</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        ) : null}
+        {current == 2 ? (
+          <ScrollView>
+            <View style={styles.optionBoxContainer}>
+              <Text>收藏</Text>
+            </View>
+          </ScrollView>
+        ) : null}
+        {current == 3 ? (
+          <ScrollView>
+            <View style={styles.optionBoxContainer}>
+              <Text>笔记</Text>
+            </View>
+          </ScrollView>
+        ) : null}
+        {current == 4 ? (
+          <ScrollView>
+            <View style={styles.optionBoxContainer}>
+              <Text>其他</Text>
+            </View>
+          </ScrollView>
+        ) : null}
+        {current == 5 ? (
+          <ScrollView>
+            <View style={styles.optionBoxContainer}>
+              <Text>问题</Text>
+            </View>
+          </ScrollView>
+        ) : null}
+      </ScrollView>
+    </>
   );
 };
 

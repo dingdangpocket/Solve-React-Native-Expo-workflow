@@ -286,7 +286,7 @@ const ScreenC = (props) => {
           onInsertLink={onInsertLink}
         />
         <RichEditor
-          initialFocus={true}
+          // initialFocus={true}
           disabled={disabled}
           editorStyle={contentStyle} 
           ref={richText}
