@@ -6,11 +6,82 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Button,
+  TextInput,
 } from "react-native";
-
+import { useState, useEffect, useReducer } from "react";
+import { AntDesign } from "@expo/vector-icons";
+import Modal from "react-native-modal";
 const InfoScreen = () => {
+  const forceUpdate = useReducer((bool) => !bool)[1];
+  const [userInfo, setUserInfo] = useState({
+    userName: "dingdang",
+    filed: "前端",
+    company: "solve",
+    about: "写代码摸鱼",
+    link: "www.dingdangpocket.com",
+  });
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [status, setStatus] = useState("用户名");
+  const toggleModal = (value) => {
+    setModalVisible(!isModalVisible);
+    setStatus(value);
+    forceUpdate() 
+  };
+  useEffect(() => {
+    console.log("render");
+  }, []);
+  const [userName, onChangeUserName] = React.useState(userInfo.userName);
+  const [filed, onChangefiled] = React.useState(userInfo.filed);
+  const [company, onChangeCompany] = React.useState(userInfo.company);
+  const [about, onChangeAbout] = React.useState(userInfo.about);
+  const [link, onChangeLink] = React.useState(userInfo.link);
   return (
     <View style={{ flex: 1, backgroundColor: "rgb(236,236,236)" }}>
+      <Modal isVisible={isModalVisible}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <View style={{ width: 200, height: 100, backgroundColor: "red" }}>
+            {status == "用户名" ? (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeUserName}
+                value={userName}
+              />
+            ) : null}
+            {status == "职位" ? (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangefiled}
+                value={filed}
+              />
+            ) : null}
+            {status == "公司" ? (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeCompany}
+                value={company}
+              />
+            ) : null}
+            {status == "简介" ? (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeAbout}
+                value={about}
+              />
+            ) : null}
+            {status == "外链" ? (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeLink}
+                value={link}
+              />
+            ) : null}
+          </View>
+          <Button title="确认" onPress={toggleModal} />
+        </View>
+      </Modal>
       <View style={styles.CardCtr}>
         <View style={styles.Line1}>
           <Image
@@ -26,28 +97,70 @@ const InfoScreen = () => {
         </View>
 
         <View style={styles.Line2}>
-          <View style={styles.box}>
-            <Text>用户名</Text>
-            <Text style={{ marginRight: 10 }}>dingdang</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>职位</Text>
-            <Text style={{ marginRight: 10 }}>前端开发</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>公司</Text>
-            <Text style={{ marginRight: 10 }}>solve</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>简介</Text>
-            <Text style={{ marginRight: 10 }}>写代码、摸鱼、🚴</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>外链</Text>
-            <Text style={{ marginRight: 10 }}>www.dingdangpocket.com</Text>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => toggleModal("用户名")}
+          >
+            <View style={styles.box}>
+              <Text>用户名</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ marginRight: 10 }}>{userName}</Text>
+                <AntDesign name="right" size={20} color="gray" />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => toggleModal("职位")}
+          >
+            <View style={styles.box}>
+              <Text>职位</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ marginRight: 10 }}>{filed}</Text>
+                <AntDesign name="right" size={20} color="gray" />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => toggleModal("公司")}
+          >
+            <View style={styles.box}>
+              <Text>公司</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ marginRight: 10 }}>{company}</Text>
+                <AntDesign name="right" size={20} color="gray" />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => toggleModal("简介")}
+          >
+            <View style={styles.box}>
+              <Text>简介</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ marginRight: 10 }}>{about}</Text>
+                <AntDesign name="right" size={20} color="gray" />
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => toggleModal("外链")}
+          >
+            <View style={styles.box}>
+              <Text>外链</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ marginRight: 10 }}>{link}</Text>
+                <AntDesign name="right" size={20} color="gray" />
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
+      <Button title="保存修改"></Button>
     </View>
   );
 };
@@ -57,7 +170,6 @@ let MainWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   CardCtr: {
     height: 430,
-    // backgroundColor: "green",
     marginTop: 5,
     flexDirection: "column",
     padding: 8,
@@ -100,7 +212,7 @@ const styles = StyleSheet.create({
   box: {
     width: MainWidth * 0.9,
     height: 60,
-    marginTop:2,
+    marginTop: 2,
     backgroundColor: "orange",
     justifyContent: "center",
     alignItems: "center",
