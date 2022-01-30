@@ -9,9 +9,8 @@ import {
   Dimensions,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import ContentCard from "../components/ContentCard";
-
-const ScreenB = ({ navigation }) => {
+import ContentCard from "../../components/ContentCard";
+const UserHomePage = ({ navigation }) => {
   //测试数据;
   const [cardData, setCardData] = useState([
     {
@@ -88,11 +87,10 @@ const ScreenB = ({ navigation }) => {
   //测试数据;
   //选项列表
   const [optionList, setOptionList] = useState([
-    { id: 0, content: "我的动态" },
+    { id: 0, content: "动态" },
     { id: 1, content: "发布" },
-    { id: 2, content: "收藏" },
-    { id: 3, content: "笔记" },
-    { id: 4, content: "更多" },
+    { id: 2, content: "笔记" },
+    { id: 3, content: "更多" },
   ]);
   //选项列表
 
@@ -104,6 +102,18 @@ const ScreenB = ({ navigation }) => {
     onPressTouch();
   };
   //获得选项;
+
+  //scrollView跳转到指定位置
+  let MainHeight = Dimensions.get("window").height;
+  let MainWidth = Dimensions.get("window").width;
+  const scrollRef = useRef();
+  const onPressTouch = () => {
+    scrollRef.current?.scrollTo({
+      y: MainHeight * 0.32,
+      animated: true,
+    });
+  };
+  //scrollView跳转到指定位置
 
   //跳转内容页面详情;
   const LinkToDesc = (contentType) => {
@@ -135,17 +145,6 @@ const ScreenB = ({ navigation }) => {
     console.log(pickerResult);
   };
 
-  //scrollView跳转到指定位置
-  let MainHeight = Dimensions.get("window").height;
-  let MainWidth = Dimensions.get("window").width;
-  const scrollRef = useRef();
-  const onPressTouch = () => {
-    scrollRef.current?.scrollTo({
-      y: MainHeight * 0.32,
-      animated: true,
-    });
-  };
-  //scrollView跳转到指定位置
   return (
     <>
       <ScrollView
@@ -166,7 +165,7 @@ const ScreenB = ({ navigation }) => {
           <View style={styles.Line1}>
             <Image
               style={styles.avatorContainer}
-              source={require("../assets/images/123.jpg")}
+              source={require("../../assets/images/123.jpg")}
               resizeMode="cover"
             ></Image>
             <View style={styles.infoCtr}>
@@ -179,9 +178,9 @@ const ScreenB = ({ navigation }) => {
               </Text>
             </View>
             <View style={styles.btnCtr}>
-              <TouchableOpacity style={styles.btn} onPress={() => editInfo()}>
+              {/* <TouchableOpacity style={styles.btn} onPress={() => editInfo()}>
                 <Text style={{ fontSize: 12 }}>编辑</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
           <View style={styles.Line2}>
@@ -223,7 +222,7 @@ const ScreenB = ({ navigation }) => {
                 return (
                   <TouchableOpacity
                     key={item.id}
-                    activeOpacity={0.8}
+                    activeOpacity={0.9}
                     onPress={() => get(item.id)}
                   >
                     <View
@@ -308,34 +307,8 @@ const ScreenB = ({ navigation }) => {
         ) : null}
         {current == 3 ? (
           <ScrollView>
-            <View style={styles.focusListContainer}>
-              {cardData.map((item) => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.9}
-                    key={item.id}
-                    onPress={() => LinkToDesc(item.contentType)}
-                  >
-                    <View>
-                      <ContentCard item={item}></ContentCard>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
-        ) : null}
-        {current == 4 ? (
-          <ScrollView>
             <View style={styles.optionBoxContainer}>
               <Text>其他</Text>
-            </View>
-          </ScrollView>
-        ) : null}
-        {current == 5 ? (
-          <ScrollView>
-            <View style={styles.optionBoxContainer}>
-              <Text>问题</Text>
             </View>
           </ScrollView>
         ) : null}
@@ -414,39 +387,31 @@ const styles = StyleSheet.create({
     borderColor: "rgb(240,240,240)",
   },
   optionArea: {
-    backgroundColor: "green",
+    // backgroundColor: "green",
+    width: MainWidth,
     flex: 1,
     flexDirection: "row",
     flexWrap: "nowrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   optionAreaLeft: {
-    backgroundColor: "white",
-    height: 60,
-    width: MainWidth * 0.75,
-  },
-  optionAreaRight: {
-    backgroundColor: "white",
-    height: 60,
-    width: 60,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // backgroundColor: "blue",
+    height: 50,
+    width: MainWidth,
   },
   optionBox: {
-    height: 60,
-    width: 95,
+    height: 50,
+    width: MainWidth * 0.25,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // marginStart: 2,
     borderBottomWidth: 2,
     borderBottomColor: "#972F97",
-    backgroundColor: "rgba(151,47,151, 0.7)",
+    backgroundColor: "rgba(151,47,151, 0.9)",
   },
   optionBoxUnActived: {
     height: 60,
-    width: 95,
+    width: MainWidth * 0.25,
     backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
@@ -474,4 +439,4 @@ const styles = StyleSheet.create({
     height: MainHeight,
   },
 });
-export default ScreenB;
+export default UserHomePage;

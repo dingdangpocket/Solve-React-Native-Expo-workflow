@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   Button,
   TextInput,
+  Linking,
 } from "react-native";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useRef } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import Modal from "react-native-modal";
+import * as ImagePicker from "expo-image-picker";
 const InfoScreen = () => {
-  const forceUpdate = useReducer((bool) => !bool)[1];
   const [userInfo, setUserInfo] = useState({
     userName: "dingdang",
     filed: "前端",
@@ -26,23 +27,66 @@ const InfoScreen = () => {
   const toggleModal = (value) => {
     setModalVisible(!isModalVisible);
     setStatus(value);
-    forceUpdate() 
   };
-  useEffect(() => {
-    console.log("render");
-  }, []);
   const [userName, onChangeUserName] = React.useState(userInfo.userName);
   const [filed, onChangefiled] = React.useState(userInfo.filed);
   const [company, onChangeCompany] = React.useState(userInfo.company);
   const [about, onChangeAbout] = React.useState(userInfo.about);
   const [link, onChangeLink] = React.useState(userInfo.link);
+
+  const getValue = () => {
+    let formData = {
+      userName: userName,
+      filed: filed,
+      company: company,
+      about: about,
+      link: link,
+    };
+    console.log("提交修改个人信息", formData);
+  };
+
+  const [selectedImage, setSelectedImage] = React.useState(null);
+  let openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  // let openImagePickerAsync = async () => {
+  //   let permissionResult =
+  //     await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //   if (permissionResult.granted === false) {
+  //     alert("Permission to access camera roll is required!");
+  //     return;
+  //   }
+  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
+  //   console.log(pickerResult);
+  // };
+
+  let MainHeight = Dimensions.get("window").height;
+  let MainWidth = Dimensions.get("window").width;
   return (
     <View style={{ flex: 1, backgroundColor: "rgb(236,236,236)" }}>
       <Modal isVisible={isModalVisible}>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <View style={{ width: 200, height: 100, backgroundColor: "red" }}>
+          <View
+            style={{
+              width: MainWidth * 0.7,
+              height: MainHeight * 0.2,
+              backgroundColor: "white",
+              padding: 10,
+            }}
+          >
             {status == "用户名" ? (
               <TextInput
                 style={styles.input}
@@ -79,19 +123,46 @@ const InfoScreen = () => {
               />
             ) : null}
           </View>
-          <Button title="确认" onPress={toggleModal} />
+          <TouchableOpacity
+            onPress={toggleModal}
+            style={{
+              backgroundColor: "rgba(151,47,151, 0.7)",
+              width: 70,
+              height: 30,
+              marginTop: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              确认
+            </Text>
+          </TouchableOpacity>
         </View>
       </Modal>
       <View style={styles.CardCtr}>
         <View style={styles.Line1}>
-          <Image
-            style={styles.avatorContainer}
-            source={require("../../assets/images/123.jpg")}
-            resizeMode="cover"
-          ></Image>
+          {selectedImage !== null ? (
+            <Image
+              style={styles.avatorContainer}
+              // source={require("../../assets/images/123.jpg")}
+              source={{ uri: selectedImage.localUri }}
+              resizeMode="cover"
+            ></Image>
+          ) : (
+            <Image
+              style={styles.avatorContainer}
+              source={require("../../assets/images/123.jpg")}
+              resizeMode="cover"
+            ></Image>
+          )}
           <View style={styles.btnCtr}>
-            <TouchableOpacity style={styles.btn} onPress={() => editInfo()}>
-              <Text style={{ fontSize: 16 }}>更换</Text>
+            <TouchableOpacity style={styles.btn} onPress={openImagePickerAsync}>
+              <Text style={{ fontSize: 13 }}>更换</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -104,7 +175,9 @@ const InfoScreen = () => {
             <View style={styles.box}>
               <Text>用户名</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginRight: 10 }}>{userName}</Text>
+                <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
+                  {userName}
+                </Text>
                 <AntDesign name="right" size={20} color="gray" />
               </View>
             </View>
@@ -116,7 +189,9 @@ const InfoScreen = () => {
             <View style={styles.box}>
               <Text>职位</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginRight: 10 }}>{filed}</Text>
+                <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
+                  {filed}
+                </Text>
                 <AntDesign name="right" size={20} color="gray" />
               </View>
             </View>
@@ -128,7 +203,9 @@ const InfoScreen = () => {
             <View style={styles.box}>
               <Text>公司</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginRight: 10 }}>{company}</Text>
+                <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
+                  {company}
+                </Text>
                 <AntDesign name="right" size={20} color="gray" />
               </View>
             </View>
@@ -140,7 +217,9 @@ const InfoScreen = () => {
             <View style={styles.box}>
               <Text>简介</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginRight: 10 }}>{about}</Text>
+                <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
+                  {about}
+                </Text>
                 <AntDesign name="right" size={20} color="gray" />
               </View>
             </View>
@@ -150,17 +229,50 @@ const InfoScreen = () => {
             activeOpacity={0.9}
             onPress={() => toggleModal("外链")}
           >
-            <View style={styles.box}>
+            <View
+              style={{
+                width: MainWidth * 0.9,
+                height: 60,
+                marginTop: 2,
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
               <Text>外链</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ marginRight: 10 }}>{link}</Text>
+                <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
+                  {link}
+                </Text>
                 <AntDesign name="right" size={20} color="gray" />
               </View>
             </View>
           </TouchableOpacity>
         </View>
       </View>
-      <Button title="保存修改"></Button>
+      <View
+        style={{
+          width: MainWidth,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => getValue()}
+          style={{
+            width: 70,
+            height: 30,
+            marginTop: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: "rgba(151,47,151, 0.7)",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "rgb(100,100,100)" }}>保存修改</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -199,7 +311,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderBottomWidth: 1,
-    borderBottomColor: "black",
+    borderBottomColor: "rgb(120,120,120)",
   },
   Line2: {
     height: 320,
@@ -213,13 +325,13 @@ const styles = StyleSheet.create({
     width: MainWidth * 0.9,
     height: 60,
     marginTop: 2,
-    backgroundColor: "orange",
+    // backgroundColor: "orange",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "black",
+    borderBottomColor: "rgb(190,190,190)",
   },
 });
 export default InfoScreen;

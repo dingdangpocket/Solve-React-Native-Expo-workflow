@@ -14,6 +14,9 @@ import ErrorDescScreen from "./screens/desc/ErrorDescScreen"; //引入
 import ExampleDescScreen from "./screens/desc/ExampleDescScreen"; //引入
 import QuestionDescScreen from "./screens/desc/QuestionDescScreen"; //引入
 import InfoScreen from "./screens/info/InfoScreen"; //引入
+import FollowerList from "./screens/followerList/FollowerList"; //引入
+import MyFollowerList from "./screens/myfollowerList/MyfollowerList"; //引入
+import UserHomePage from "./screens/userHomePage/UserHomePage"; //引入
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
@@ -127,6 +130,27 @@ export default function App() {
                <Stack.Screen
                 name="InfoScreen"
                 component={InfoScreen}
+                options={{
+                  title: '',
+                }}
+              />
+               <Stack.Screen
+                name="FollowerList"
+                component={FollowerList}
+                options={{
+                  title: '',
+                }}
+              />
+                <Stack.Screen
+                name="MyFollowerList"
+                component={MyFollowerList}
+                options={{
+                  title: '',
+                }}
+              />
+               <Stack.Screen
+                name="UserHomePage"
+                component={UserHomePage}
                 options={{
                   title: '',
                 }}

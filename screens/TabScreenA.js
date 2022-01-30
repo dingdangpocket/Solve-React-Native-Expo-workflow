@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    backgroundColor: "rgb(240,240,240)",
   },
 });
 
@@ -157,7 +158,7 @@ const TabScreenA = ({ navigation }) => {
   const [cardData, setCardData] = useState([
     {
       id: 0,
-      title: "React性能优化方案",
+      title: "React.js性能优化方案",
       content: "理论内容数据...",
       recordNum: "1076",
       solveNum: "786",
@@ -168,10 +169,12 @@ const TabScreenA = ({ navigation }) => {
       MainTag: "前端",
       ProgramingLanguage: "python",
       contentType: "theory",
+      tag: "理论",
+      remdTag:"精选"
     },
     {
       id: 1,
-      title: "Promise.all()使用示例",
+      title: "Promise.all使用示例",
       content: "示例内容数据...",
       recordNum: "1076",
       solveNum: "786",
@@ -182,10 +185,12 @@ const TabScreenA = ({ navigation }) => {
       MainTag: "前端",
       ProgramingLanguage: "python",
       contentType: "example",
+      tag: "示例",
+      remdTag:"精选"
     },
     {
       id: 2,
-      title: "Cannot read property blob of undefined?",
+      title: "Cannot read property blob of undefined",
       content: "报错内容数据...",
       recordNum: "1076",
       solveNum: "786",
@@ -196,6 +201,8 @@ const TabScreenA = ({ navigation }) => {
       MainTag: "前端",
       ProgramingLanguage: "python",
       contentType: "error",
+      tag: "报错",
+      remdTag:"热门"
     },
     {
       id: 3,
@@ -210,6 +217,8 @@ const TabScreenA = ({ navigation }) => {
       MainTag: "前端",
       ProgramingLanguage: "python",
       contentType: "question",
+      tag: "问题",
+      remdTag:"热门"
     },
     {
       id: 4,
@@ -224,6 +233,40 @@ const TabScreenA = ({ navigation }) => {
       MainTag: "前端",
       ProgramingLanguage: "python",
       contentType: "question",
+      tag: "问题",
+      remdTag:"热门"
+    },
+    {
+      id: 5,
+      title: "Vue.js响应式原理",
+      content: "理论数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "javaScript",
+      contentType: "theory",
+      tag: "理论",
+      remdTag:"热门"
+    },
+    {
+      id: 6,
+      title: "useRef使用示例",
+      content: "示例数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "example",
+      tag: "示例",
+      remdTag:""
     },
   ]);
   //测试数据;
@@ -288,11 +331,91 @@ const TabScreenA = ({ navigation }) => {
             })}
           </View>
         ) : null}
-        {current == 1 ? <Text>精选</Text> : null}
-        {current == 2 ? <Text>热门</Text> : null}
-        {current == 3 ? <Text>示例</Text> : null}
-        {current == 4 ? <Text>理论</Text> : null}
-        {current == 5 ? <Text>问题</Text> : null}
+        {current == 1 ? (
+          <View style={styles.focusListContainer}>
+            {cardData.filter((item)=>item.remdTag=="精选").map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  key={item.id}
+                  onPress={() => LinkToDesc(item.contentType)}
+                >
+                  <View>
+                    <ContentCard item={item}></ContentCard>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : null}
+        {current == 2 ? (
+          <View style={styles.focusListContainer}>
+           {cardData.filter((item)=>item.remdTag=="热门").map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  key={item.id}
+                  onPress={() => LinkToDesc(item.contentType)}
+                >
+                  <View>
+                    <ContentCard item={item}></ContentCard>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : null}
+        {current == 3 ? (
+          <View style={styles.focusListContainer}>
+           {cardData.filter((item)=>item.tag=="示例").map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  key={item.id}
+                  onPress={() => LinkToDesc(item.contentType)}
+                >
+                  <View>
+                    <ContentCard item={item}></ContentCard>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : null}
+        {current == 4 ? (
+          <View style={styles.focusListContainer}>
+           {cardData.filter((item)=>item.tag=="理论").map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  key={item.id}
+                  onPress={() => LinkToDesc(item.contentType)}
+                >
+                  <View>
+                    <ContentCard item={item}></ContentCard>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : null}
+        {current == 5 ? (
+          <View style={styles.focusListContainer}>
+           {cardData.filter((item)=>item.tag=="问题").map((item) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  key={item.id}
+                  onPress={() => LinkToDesc(item.contentType)}
+                >
+                  <View>
+                    <ContentCard item={item}></ContentCard>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : null}
       </ScrollView>
     </View>
   );
