@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   View,
@@ -13,9 +13,9 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setName, getData } from "../redux/actions";
+import { setName, getData } from "../../redux/actions";
 import { createStackNavigator } from "@react-navigation/stack"; //引入
-import ContentCard from "../components/ContentCard";
+import ContentCard from "../../components/ContentCard";
 const Stack = createStackNavigator();
 
 let MainHeight = Dimensions.get("window").height;
@@ -46,26 +46,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
   },
-  optionArea: {
-    backgroundColor: "green",
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    justifyContent: "space-between",
-  },
-  optionAreaLeft: {
-    backgroundColor: "white",
-    height: 60,
-    width: MainWidth * 0.75,
-  },
-  optionAreaRight: {
-    backgroundColor: "white",
-    height: 60,
-    width: 60,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  searchArea: {},
   optionBox: {
     height: 60,
     width: 95,
@@ -101,7 +82,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const TabScreenA = ({ navigation }) => {
+const Search = ({ navigation }) => {
   const [name2, SetName2] = useState("");
   const { name, data } = useSelector((state) => state.userReducer);
   const [index, setIndex] = React.useState(0);
@@ -170,7 +151,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "theory",
       tag: "理论",
-      remdTag:"精选"
+      remdTag: "精选",
     },
     {
       id: 1,
@@ -186,7 +167,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "example",
       tag: "示例",
-      remdTag:"精选"
+      remdTag: "精选",
     },
     {
       id: 2,
@@ -202,7 +183,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "error",
       tag: "报错",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 3,
@@ -218,7 +199,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "question",
       tag: "问题",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 4,
@@ -234,7 +215,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "question",
       tag: "问题",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 5,
@@ -250,7 +231,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "javaScript",
       contentType: "theory",
       tag: "理论",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 6,
@@ -266,62 +247,82 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "example",
       tag: "示例",
-      remdTag:""
+      remdTag: "",
     },
   ]);
   //测试数据;
+
+  const [SearchValue, setSearchValue] = useState("React");
+
+  //后端搜索;
+  const searchData = () => {
+    console.log("搜索内容", SearchValue);
+    //axios...
+    //setCardData(res)
+  };
+  //后端搜索;
+
+  //前端搜索;
+  const filterCardData = useMemo(() => {
+    return cardData.filter((item) => {
+      if (item.title.includes(SearchValue)) {
+        return item;
+      }
+    });
+  }, [SearchValue]);
+  //前端搜索;
+
   return (
     <View>
       <ScrollView horizontal={false}>
-        <View style={styles.optionArea}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            style={styles.optionAreaLeft}
+        <View
+          style={{
+            backgroundColor: "rgb(250,250,250)",
+            height: 50,
+            width: MainWidth,
+            flex: 1,
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextInput
+            style={{
+              backgroundColor: "rgb(220,220,220)",
+              width: MainWidth * 0.7,
+              height: 35,
+              borderColor: "black",
+              marginLeft: MainWidth * 0.03,
+              padding: 5,
+            }}
+            placeholder="请输入搜索内容..."
+            onChangeText={setSearchValue}
+            value={SearchValue}
+          ></TextInput>
+          <TouchableOpacity
+            onPress={() => searchData()}
+            style={{
+              backgroundColor: "rgba(151,47,151, 0.7)",
+              width: 70,
+              height: 33,
+              marginRight: 20,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            {optionList.map((item) => {
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  activeOpacity={0.8}
-                  onPress={() => get(item.id)}
-                >
-                  <View
-                    style={
-                      item.id == current
-                        ? styles.optionBox
-                        : styles.optionBoxUnActived
-                    }
-                  >
-                    <Text
-                      style={
-                        item.id == current
-                          ? styles.textDefault
-                          : styles.textUnActived
-                      }
-                    >
-                      {item.content}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-          <View style={styles.optionAreaRight}>
-            <TouchableOpacity
-            onPress={()=>navigation.navigate("Search")}
+            <Text
+              style={{
+                color: "white",
+              }}
             >
-            <Image
-              source={require("../assets/images/search.png")}
-              style={{ width: 25, height: 25 }}
-            />
-            </TouchableOpacity>
-           
-          </View>
+              搜索
+            </Text>
+          </TouchableOpacity>
         </View>
         {current == 0 ? (
           <View style={styles.focusListContainer}>
-            {cardData.map((item) => {
+            {filterCardData.map((item) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.9}
@@ -338,91 +339,116 @@ const TabScreenA = ({ navigation }) => {
         ) : null}
         {current == 1 ? (
           <View style={styles.focusListContainer}>
-            {cardData.filter((item)=>item.remdTag=="精选").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.remdTag == "精选")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 2 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.remdTag=="热门").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.remdTag == "热门")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 3 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="示例").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "示例")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 4 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="理论").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "理论")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 5 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="问题").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "问题")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
       </ScrollView>
     </View>
   );
 };
-export default TabScreenA;
+export default Search;
+
+// import React from 'react';
+// import {View, StyleSheet} from 'react-native';
+
+// const Search = () => {
+//     return (
+//         <View>
+
+//         </View>
+//     );
+// }
+
+// const styles = StyleSheet.create({})
+
+// export default Search;

@@ -17,6 +17,8 @@ import InfoScreen from "./screens/info/InfoScreen"; //引入
 import FollowerList from "./screens/followerList/FollowerList"; //引入
 import MyFollowerList from "./screens/myfollowerList/MyfollowerList"; //引入
 import UserHomePage from "./screens/userHomePage/UserHomePage"; //引入
+import Search from "./screens/search/Search"; //引入
+
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
@@ -153,6 +155,14 @@ export default function App() {
                 component={UserHomePage}
                 options={{
                   title: '',
+                }}
+              />
+                <Stack.Screen
+                name="Search"
+                component={Search}
+                options={{
+                  title:'搜索',
+                  
                 }}
               />
             </Stack.Navigator>

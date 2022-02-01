@@ -129,9 +129,16 @@ const ExampleDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "我觉得OK",
           parentId: 0,
           anwser: "杨磊",
+        },
+        {
+          id: 2,
+          publisher: "孙利",
+          content: "我觉得不行",
+          parentId: 0,
+          anwser: "黄海",
         },
       ],
     },
