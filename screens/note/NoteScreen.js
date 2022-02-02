@@ -29,18 +29,18 @@ import React,{useEffect} from 'react'
 useEffect(()=>{
     console.log("空数组：componentDidMount");
 },[])
-//(1) 使用useEffect来模拟componentDidMount
+//(1)模拟componentDidMount
 
 
 useEffect(()=>{
-    console.log("没有数组：componentDidUpdate");
+    console.log("无数组：componentDidUpdate");
 })
-//(2) 没有数组这个参数,进入执行一次,数据修改时再次执行;类似Vue.computed
+//(2)模拟componentDidUpdate;
 
 useEffect(()=>{
     console.log("数组[student.name]:componentDidUpdate"+student.age);
 },[student.userName])
-//(3) useEffect传递一个数组，数组里面指定监控某个值,只有变化时才会执行;
+//(3)传递一个数组并监控这个值,变化时执行;
 
 useEffect(()=>{
     console.log("数组[]:componentWillonMount");
@@ -53,7 +53,7 @@ useEffect(()=>{
         clearInterval(timmer)
     }
 },[])
-//(4) useEffect模拟组件销毁的时候;
+//(4)模拟组件销毁执行;
 \`\`\`
 ### useMemo
 \`\`\` js

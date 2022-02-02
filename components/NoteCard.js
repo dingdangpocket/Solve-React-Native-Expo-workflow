@@ -14,7 +14,7 @@ const NoteCard = (props) => {
     <View
       style={{
         height: 125,
-        width: 100,
+        width:MainWidth*0.22,
         backgroundColor: "white",
         marginLeft: 15,
         marginRight: 15,
@@ -23,14 +23,14 @@ const NoteCard = (props) => {
       }}
       key={props.item.id}
     >
-      <View style={{ height: 90, width: 100, backgroundColor: "rgb(250,250,250)",justifyContent:"center",alignItems:"center" }}>
+      <View style={{ height: 90,width:MainWidth*0.22, backgroundColor: "rgb(250,250,250)",justifyContent:"center",alignItems:"center" }}>
         {/* <Image
-          source={require("../assets/images/my0.png")}
+          source={require("../assets/images/my0.png")}rgba(151,27,121, 0.85)
           style={{ height: 65, width: 65 }}
         ></Image> */}
         <Ionicons name="code-slash-sharp" size={48} color="gray" />
       </View>
-      <View style={{ height: 35, width: 100,  backgroundColor: "rgba(151,27,121, 0.85)",justifyContent:"center",alignItems:"center" }}>
+      <View style={{ height: 35,width:MainWidth*0.22,  backgroundColor: "rgba(150,150,150,0.9)",justifyContent:"center",alignItems:"center" }}>
         <Text style={{fontSize:12,color:"white"}}>
           {props.item.title}
         </Text>

@@ -38,16 +38,16 @@ const UserCard = (props) => {
       <TouchableOpacity
         onPress={() => props.navigation.navigate("UserHomePage")}
         style={{
-          width: MainWidth * 0.15,
-          backgroundColor: "orange",
+          width: MainWidth * 0.16,
+          // backgroundColor: "orange",
           height: 65,
         }}
       >
         <Image
           source={require("../assets/images/solve.jpg")}
           style={{
-            width: MainWidth * 0.15,
-            backgroundColor: "orange",
+            width: MainWidth * 0.16,
+            // backgroundColor: "orange",
             height: 65,
           }}
         ></Image>
@@ -56,19 +56,19 @@ const UserCard = (props) => {
         onPress={() => props.navigation.navigate("UserHomePage")}
         style={{
           width: MainWidth * 0.5,
-          backgroundColor: "white",
+          // backgroundColor: "white",
           height: 75,
           justifyContent: "center",
           alignItems: "flex-start",
         }}
       >
         <Text>{props.item.name}</Text>
-        <Text>{props.item.sign}</Text>
+        <Text style={{color:"gray",fontSize:12}}>{props.item.sign}</Text>
       </TouchableOpacity>
       <View
         style={{
           width: MainWidth * 0.18,
-          backgroundColor: "white",
+          // backgroundColor: "white",
           height: 75,
           justifyContent: "space-around",
           alignItems: "center",
@@ -77,7 +77,7 @@ const UserCard = (props) => {
         <TouchableOpacity
         onPress={()=>cancleFollow()}
         >
-          <Text>已关注</Text>
+          <Text style={{color:"gray",fontSize:12}}>已关注</Text>
         </TouchableOpacity>
       </View>
     </View>
