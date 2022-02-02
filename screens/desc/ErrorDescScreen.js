@@ -18,7 +18,7 @@ import Comment from "../../components/Comment";
 import Modal from "react-native-modal";
 
 const copy = `
-我在Next.js中引入Three.js,出现了该报错,请问大家有没有好的解决方案?我的代码如下:
+在Next.js中引入Three.js,出现了该报错,请问大家有没有好的解决方案?代码如下:
 \`\`\` js
 import React, { Component } from 'react'
 import Axios from 'axios'
@@ -65,6 +65,22 @@ const ErrorDescScreen = ({ navigation }) => {
   const [cardData, setCardData] = useState([
     {
       id: 0,
+      title: "Cannot read property blob of undefined",
+      content: "报错内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李斯",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "error",
+      tag: "报错",
+      remdTag: "热门",
+    },
+    {
+      id: 1,
       title: "React.js性能优化方案",
       content: "理论内容数据...",
       recordNum: "1076",
@@ -80,7 +96,7 @@ const ErrorDescScreen = ({ navigation }) => {
       remdTag: "精选",
     },
     {
-      id: 1,
+      id: 2,
       title: "Promise.all使用示例",
       content: "示例内容数据...",
       recordNum: "1076",
@@ -94,22 +110,6 @@ const ErrorDescScreen = ({ navigation }) => {
       contentType: "example",
       tag: "示例",
       remdTag: "精选",
-    },
-    {
-      id: 2,
-      title: "Cannot read property blob of undefined",
-      content: "报错内容数据...",
-      recordNum: "1076",
-      solveNum: "786",
-      spotNum: "684",
-      commentNum: "692",
-      publisher: "李斯",
-      createTime: "3天前",
-      MainTag: "前端",
-      ProgramingLanguage: "python",
-      contentType: "error",
-      tag: "报错",
-      remdTag: "热门",
     },
     {
       id: 3,
@@ -146,7 +146,7 @@ const ErrorDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "我赞同你的观点",
           parentId: 0,
           anwser: "杨磊",
         },
@@ -180,7 +180,7 @@ const ErrorDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "这篇文章质量非常高",
           parentId: 0,
           anwser: "杨磊",
         },
@@ -206,7 +206,19 @@ const ErrorDescScreen = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [userName, onChangeUserName] = React.useState("");
 
+  const [commentData, onChangeCommentData] = React.useState("");
+
   const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const publishComment = () => {
+    console.log(commentData);
+    let obj = {
+      id: comment.length + 1,
+      publisher: "李飞",
+      content: commentData,
+    };
+    setCommentData([...comment, obj]);
     setModalVisible(!isModalVisible);
   };
   return (
@@ -225,13 +237,13 @@ const ErrorDescScreen = ({ navigation }) => {
           >
             <TextInput
               style={styles.input}
-              onChangeText={onChangeUserName}
-              value={userName}
+              onChangeText={onChangeCommentData}
+              value={commentData}
               placeholder="请输入你的评论内容"
             />
           </View>
           <TouchableOpacity
-            onPress={toggleModal}
+            onPress={publishComment}
             style={{
               backgroundColor: "rgba(151,47,151, 0.9)",
               width: 70,
@@ -251,6 +263,7 @@ const ErrorDescScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </Modal>
+
       <ScrollView style={styles.container}>
         <View style={styles.justify}>
           <TouchableOpacity
@@ -315,39 +328,41 @@ const ErrorDescScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <Text style={{ fontSize: 20 }}>Cannot read property blob of undefined</Text>
+          <Text style={{ fontSize: 20 }}>
+            Cannot read property blob of undefined
+          </Text>
           <Markdown mergeStyle={true}>{copy}</Markdown>
 
           <View
-          style={{
-            width: MainWidth*0.95,
-            height: 40,
-            backgroundColor: "white",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => toggleModal()}
             style={{
-              backgroundColor: "rgba(151,47,151,1)",
-              width: 70,
-              height: 30,
-              justifyContent: "center",
+              width: MainWidth * 0.95,
+              height: 40,
+              backgroundColor: "white",
+              flexDirection: "row",
+              justifyContent: "flex-end",
               alignItems: "center",
-              marginRight: 30,
             }}
           >
-            <Text
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Anwser")}
               style={{
-                color: "white",
+                backgroundColor: "rgba(151,47,151,1)",
+                width: 70,
+                height: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 30,
               }}
             >
-              写回答
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  color: "white",
+                }}
+              >
+                写回答
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           <View
             style={{
@@ -379,6 +394,7 @@ const ErrorDescScreen = ({ navigation }) => {
               return (
                 <>
                   <View
+                    key={item.id}
                     style={{
                       borderBottomWidth: 1,
                       borderBottomColor: "rgb(180,180,180)",
@@ -549,6 +565,7 @@ const ErrorDescScreen = ({ navigation }) => {
                 return (
                   <>
                     <View
+                      key={item.id}
                       style={{
                         borderBottomWidth: 0.5,
                         borderBottomColor: "rgb(180,180,180)",

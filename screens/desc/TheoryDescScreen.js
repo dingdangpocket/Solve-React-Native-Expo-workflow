@@ -149,6 +149,8 @@ const TheoryDescScreen = ({ navigation }) => {
     },
   ]);
   //测试数据;
+  
+  //评论树测试数据;
   const [comment, setCommentData] = useState([
     {
       id: 0,
@@ -166,7 +168,7 @@ const TheoryDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "我赞同你的观点",
           parentId: 0,
           anwser: "杨磊",
         },
@@ -200,13 +202,14 @@ const TheoryDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "这篇文章质量非常高",
           parentId: 0,
           anwser: "杨磊",
         },
       ],
     },
   ]);
+  //评论树测试数据;
 
   const LinkToDesc = (contentType) => {
     if (contentType == "theory") {
@@ -222,11 +225,20 @@ const TheoryDescScreen = ({ navigation }) => {
       navigation.navigate("QuestionDescScreen");
     }
   };
-  //选项列表
   const [isModalVisible, setModalVisible] = useState(false);
-  const [userName, onChangeUserName] = React.useState("");
+  const [commentData, onChangeCommentData] = React.useState("");
 
   const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const publishComment = () => {
+    console.log(commentData);
+    let obj = {
+      id: comment.length + 1,
+      publisher: "李飞",
+      content: commentData,
+    };
+    setCommentData([...comment, obj]);
     setModalVisible(!isModalVisible);
   };
   return (
@@ -245,13 +257,13 @@ const TheoryDescScreen = ({ navigation }) => {
           >
             <TextInput
               style={styles.input}
-              onChangeText={onChangeUserName}
-              value={userName}
+              onChangeText={onChangeCommentData}
+              value={commentData}
               placeholder="请输入你的评论内容"
             />
           </View>
           <TouchableOpacity
-            onPress={toggleModal}
+            onPress={publishComment}
             style={{
               backgroundColor: "rgba(151,47,151, 0.9)",
               width: 70,
@@ -407,6 +419,7 @@ const TheoryDescScreen = ({ navigation }) => {
                 return (
                   <>
                     <View
+                      key={item.id}
                       style={{
                         borderBottomWidth: 1,
                         borderBottomColor: "rgb(180,180,180)",
@@ -448,7 +461,10 @@ const TheoryDescScreen = ({ navigation }) => {
                       <Text style={{ marginTop: 5, marginBottom: 5 }}>
                         {item.content}
                       </Text>
-                      <Comment childrenComment={item.childrenComment} toggleModal={toggleModal} />
+                      <Comment
+                        childrenComment={item.childrenComment}
+                        toggleModal={toggleModal}
+                      />
                     </View>
                   </>
                 );

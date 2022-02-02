@@ -20,7 +20,7 @@ const ContentCard = (props) => {
             <Text style={{ fontSize: 10, color: "gray" }}>
               {props.item.createTime}&nbsp;|&nbsp;
             </Text>
-            <Text style={{ fontSize: 10, color: "gray" }}>
+            <Text style={{ fontSize: 10, color: "rgb(60,60,60)"}}>
               {props.item.tag}
             </Text>
           </View>

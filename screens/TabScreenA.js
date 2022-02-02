@@ -158,38 +158,6 @@ const TabScreenA = ({ navigation }) => {
   const [cardData, setCardData] = useState([
     {
       id: 0,
-      title: "React.js性能优化方案",
-      content: "理论内容数据...",
-      recordNum: "1076",
-      solveNum: "786",
-      spotNum: "684",
-      commentNum: "692",
-      publisher: "张海",
-      createTime: "3天前",
-      MainTag: "前端",
-      ProgramingLanguage: "python",
-      contentType: "theory",
-      tag: "理论",
-      remdTag:"精选"
-    },
-    {
-      id: 1,
-      title: "Promise.all使用示例",
-      content: "示例内容数据...",
-      recordNum: "1076",
-      solveNum: "786",
-      spotNum: "684",
-      commentNum: "692",
-      publisher: "何新",
-      createTime: "3天前",
-      MainTag: "前端",
-      ProgramingLanguage: "python",
-      contentType: "example",
-      tag: "示例",
-      remdTag:"精选"
-    },
-    {
-      id: 2,
       title: "Cannot read property blob of undefined",
       content: "报错内容数据...",
       recordNum: "1076",
@@ -202,7 +170,39 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "error",
       tag: "报错",
-      remdTag:"热门"
+      remdTag: "热门",
+    },
+    {
+      id: 1,
+      title: "React.js性能优化方案",
+      content: "理论内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "张海",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "theory",
+      tag: "理论",
+      remdTag: "精选",
+    },
+    {
+      id: 2,
+      title: "Promise.all使用示例",
+      content: "示例内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "何新",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "example",
+      tag: "示例",
+      remdTag: "精选",
     },
     {
       id: 3,
@@ -218,7 +218,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "question",
       tag: "问题",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 4,
@@ -234,7 +234,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "question",
       tag: "问题",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 5,
@@ -250,7 +250,7 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "javaScript",
       contentType: "theory",
       tag: "理论",
-      remdTag:"热门"
+      remdTag: "热门",
     },
     {
       id: 6,
@@ -266,13 +266,40 @@ const TabScreenA = ({ navigation }) => {
       ProgramingLanguage: "python",
       contentType: "example",
       tag: "示例",
-      remdTag:""
+      remdTag: "",
     },
   ]);
   //测试数据;
+
+  // const [obj, setObj] = useState({
+  //   id: 0,
+  //   name: "zhanghai",
+  //   chid: [
+  //     {
+  //       name: "猴哥",
+  //     },
+  //     { name: "飞哥" },
+  //   ],
+  // });
+  // useEffect(() => {
+  //   console.log("obj发生了变化");
+  //   console.log(obj);
+  // }, [obj]);
+
+  // const add = () => {
+  //   console.log("事件");
+  //   setObj({
+  //     ...obj,
+  //     chid: [
+  //       {name:"猴哥"},
+  //       {name:"飞哥" },
+  //     ],
+  //   });
+  // };
   return (
     <View>
       <ScrollView horizontal={false}>
+        {/* <Button title="+" onPress={() => add()}></Button> */}
         <View style={styles.optionArea}>
           <ScrollView
             horizontal={true}
@@ -308,15 +335,12 @@ const TabScreenA = ({ navigation }) => {
             })}
           </ScrollView>
           <View style={styles.optionAreaRight}>
-            <TouchableOpacity
-            onPress={()=>navigation.navigate("Search")}
-            >
-            <Image
-              source={require("../assets/images/search.png")}
-              style={{ width: 25, height: 25 }}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+              <Image
+                source={require("../assets/images/search.png")}
+                style={{ width: 25, height: 25 }}
+              />
             </TouchableOpacity>
-           
           </View>
         </View>
         {current == 0 ? (
@@ -338,87 +362,97 @@ const TabScreenA = ({ navigation }) => {
         ) : null}
         {current == 1 ? (
           <View style={styles.focusListContainer}>
-            {cardData.filter((item)=>item.remdTag=="精选").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.remdTag == "精选")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 2 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.remdTag=="热门").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.remdTag == "热门")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 3 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="示例").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "示例")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 4 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="理论").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "理论")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
         {current == 5 ? (
           <View style={styles.focusListContainer}>
-           {cardData.filter((item)=>item.tag=="问题").map((item) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={item.id}
-                  onPress={() => LinkToDesc(item.contentType)}
-                >
-                  <View>
-                    <ContentCard item={item}></ContentCard>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+            {cardData
+              .filter((item) => item.tag == "问题")
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={item.id}
+                    onPress={() => LinkToDesc(item.contentType)}
+                  >
+                    <View>
+                      <ContentCard item={item}></ContentCard>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         ) : null}
       </ScrollView>

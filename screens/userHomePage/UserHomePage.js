@@ -8,10 +8,229 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import ContentCard from "../../components/ContentCard";
+import NoteCard from "../../components/NoteCard";
 const UserHomePage = ({ navigation }) => {
-  //测试数据;
+  //笔记数据;
+  const [noteData, setNoteData] = useState([
+    {
+      id: 0,
+      title: "React.js",
+      content: "理论内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "张海",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "theory",
+    },
+    {
+      id: 1,
+      title: "Vue.js",
+      content: "示例内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "何新",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "example",
+    },
+    {
+      id: 2,
+      title: "JavaScript",
+      content: "报错内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李斯",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "error",
+    },
+    {
+      id: 3,
+      title: "node.js",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "陈新",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 4,
+      title: "Python",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 5,
+      title: "Java",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 6,
+      title: "golang",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 7,
+      title: "React-Native",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 8,
+      title: "SpringBoot",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 9,
+      title: "Expo",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 10,
+      title: "Next.js",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 11,
+      title: "Nust.js",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 12,
+      title: "TypeScript",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 13,
+      title: "WebRtc",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+    {
+      id: 14,
+      title: "Taro",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李飞",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+  ]);
+  //笔记数据;
+
+  //卡片数据;
   const [cardData, setCardData] = useState([
     {
       id: 0,
@@ -84,7 +303,68 @@ const UserHomePage = ({ navigation }) => {
       contentType: "question",
     },
   ]);
-  //测试数据;
+  //卡片数据;
+   //发布数据;
+   const [publishData, setPublishData] = useState([
+    {
+      id: 0,
+      title: "Select自定义样式封装",
+      content: "理论内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "张海",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "theory",
+    },
+    {
+      id: 1,
+      title: "Next.js预置封装",
+      content: "示例内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "何新",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "example",
+    },
+    {
+      id: 2,
+      title: "React内部模态框自定义样式封装",
+      content: "报错内容数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "李斯",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "error",
+    },
+    {
+      id: 3,
+      title: "Vue响应式原理解析",
+      content: "问题数据...",
+      recordNum: "1076",
+      solveNum: "786",
+      spotNum: "684",
+      commentNum: "692",
+      publisher: "陈新",
+      createTime: "3天前",
+      MainTag: "前端",
+      ProgramingLanguage: "python",
+      contentType: "question",
+    },
+  ]);
+  //发布数据;
+
   //选项列表
   const [optionList, setOptionList] = useState([
     { id: 0, content: "动态" },
@@ -270,7 +550,7 @@ const UserHomePage = ({ navigation }) => {
         {current == 1 ? (
           <ScrollView>
             <View style={styles.focusListContainer}>
-              {cardData.map((item) => {
+              {publishData.map((item) => {
                 return (
                   <TouchableOpacity
                     activeOpacity={0.9}
@@ -288,8 +568,8 @@ const UserHomePage = ({ navigation }) => {
         ) : null}
         {current == 2 ? (
           <ScrollView>
-            <View style={styles.focusListContainer}>
-              {cardData.map((item) => {
+            <View style={styles.noteListContainer}>
+              {noteData.map((item) => {
                 return (
                   <TouchableOpacity
                     activeOpacity={0.9}
@@ -297,7 +577,7 @@ const UserHomePage = ({ navigation }) => {
                     onPress={() => LinkToDesc(item.contentType)}
                   >
                     <View>
-                      <ContentCard item={item}></ContentCard>
+                      <NoteCard item={item}></NoteCard>
                     </View>
                   </TouchableOpacity>
                 );
@@ -305,10 +585,123 @@ const UserHomePage = ({ navigation }) => {
             </View>
           </ScrollView>
         ) : null}
-        {current == 3 ? (
+       {current == 3 ? (
           <ScrollView>
             <View style={styles.optionBoxContainer}>
-              <Text>其他</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL("https://gitee.com/");
+                }}
+                style={{
+                  width: MainWidth,
+                  height: 40,
+                  backgroundColor: "white",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 5,
+                }}
+              >
+                <View
+                  style={{
+                    width: MainWidth * 0.2,
+                    height: 40,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <FontAwesome
+                    name="git-square"
+                    size={24}
+                    color="rgb(70,70,70)"
+                    style={{ marginRight: 2 }}
+                  />
+                  <Text style={{ fontSize: 13, color: "gray" }}>仓库</Text>
+                </View>
+                <AntDesign
+                  style={{ marginRight: 20 }}
+                  name="right"
+                  size={17}
+                  color="gray"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL("https://gitee.com/");
+                }}
+                style={{
+                  width: MainWidth,
+                  height: 40,
+                  backgroundColor: "white",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 5,
+                }}
+              >
+                <View
+                  style={{
+                    width: MainWidth * 0.2,
+                    height: 40,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="blogger"
+                    size={24}
+                    color="rgb(70,70,70)"
+                    style={{ marginRight: 2 }}
+                  />
+                  <Text style={{ fontSize: 13, color: "gray" }}>博客</Text>
+                </View>
+                <AntDesign
+                  style={{ marginRight: 20 }}
+                  name="right"
+                  size={17}
+                  color="gray"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL("https://gitee.com/");
+                }}
+                style={{
+                  width: MainWidth,
+                  height: 40,
+                  backgroundColor: "white",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 5,
+                }}
+              >
+                <View
+                  style={{
+                    width: MainWidth * 0.2,
+                    height: 40,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AntDesign
+                    name="tags"
+                    size={24}
+                    color="rgb(70,70,70)"
+                    style={{ marginRight: 2 }}
+                  />
+                  <Text style={{ fontSize: 13, color: "gray" }}>标签</Text>
+                </View>
+                <AntDesign
+                  style={{ marginRight: 20 }}
+                  name="right"
+                  size={17}
+                  color="gray"
+                />
+              </TouchableOpacity>
             </View>
           </ScrollView>
         ) : null}
@@ -437,6 +830,16 @@ const styles = StyleSheet.create({
   optionBoxContainer: {
     backgroundColor: "rgb(240,240,240)",
     height: MainHeight,
+  },
+  noteListContainer: {
+    padding: 5,
+    width: MainWidth,
+    flex: 1,
+    // height:MainHeight*0.80,
+    backgroundColor: "rgb(240,240,240)",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
 });
 export default UserHomePage;

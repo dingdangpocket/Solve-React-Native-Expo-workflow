@@ -252,7 +252,7 @@ const Search = ({ navigation }) => {
   ]);
   //测试数据;
 
-  const [SearchValue, setSearchValue] = useState("React");
+  const [SearchValue, setSearchValue] = useState("");
 
   //后端搜索;
   const searchData = () => {

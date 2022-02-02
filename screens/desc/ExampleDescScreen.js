@@ -129,16 +129,9 @@ const ExampleDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "我觉得OK",
+          content: "我赞同你的观点",
           parentId: 0,
           anwser: "杨磊",
-        },
-        {
-          id: 2,
-          publisher: "孙利",
-          content: "我觉得不行",
-          parentId: 0,
-          anwser: "黄海",
         },
       ],
     },
@@ -170,14 +163,13 @@ const ExampleDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "这篇文章质量非常高",
           parentId: 0,
           anwser: "杨磊",
         },
       ],
     },
   ]);
-
   const LinkToDesc = (contentType) => {
     if (contentType == "theory") {
       navigation.navigate("TheoryDescScreen");

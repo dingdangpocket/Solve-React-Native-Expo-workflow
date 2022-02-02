@@ -9,6 +9,7 @@ import {
   Button,
   TextInput,
   Linking,
+  ToastAndroid,
 } from "react-native";
 import { useState, useEffect, useReducer, useRef } from "react";
 import { AntDesign } from "@expo/vector-icons";
@@ -115,7 +116,7 @@ const InfoScreen = () => {
                 value={about}
               />
             ) : null}
-            {status == "外链" ? (
+            {status == "仓库地址" ? (
               <TextInput
                 style={styles.input}
                 onChangeText={onChangeLink}
@@ -227,7 +228,7 @@ const InfoScreen = () => {
 
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => toggleModal("外链")}
+            onPress={() => toggleModal("仓库地址")}
           >
             <View
               style={{
@@ -240,7 +241,7 @@ const InfoScreen = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Text>外链</Text>
+              <Text>仓库地址</Text>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ marginRight: 10, color: "rgb(165,165,165)" }}>
                   {link}
@@ -270,7 +271,12 @@ const InfoScreen = () => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "rgb(100,100,100)" }}>保存修改</Text>
+          <Text
+            style={{ color: "rgb(100,100,100)" }}
+            onPress={() => ToastAndroid.show("保存成功", ToastAndroid.LONG)}
+          >
+            保存修改
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

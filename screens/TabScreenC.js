@@ -26,6 +26,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import {
   actions,
@@ -38,15 +39,11 @@ import { InsertLinkModal } from "./utils/insertLink";
 import { EmojiView } from "./utils/emoji";
 
 const imageList = [
-  //   "https://img.lesmao.vip/k/h256/R/MeiTu/1293.jpg",
-  //   "https://pbs.twimg.com/profile_images/1242293847918391296/6uUsvfJZ.png",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png",
 ];
 const initHTML = ``;
-
 const phizIcon = require("../assets/images/phiz.png");
 const htmlIcon = require("../assets/images/html.png");
-
 function createContentStyle(theme) {
   // Can be selected for more situations (cssText or contentCSSText).
   const contentStyle = {
@@ -72,12 +69,10 @@ const ScreenC = (props) => {
   let scrollRef = useRef();
   // save on html
   let contentRef = useRef(initHTML);
-
   let [theme, setTheme] = useState(initTheme);
   let [emojiVisible, setEmojiVisible] = useState(false);
   let [disabled, setDisable] = useState(false);
   let contentStyle = useMemo(() => createContentStyle(theme), [theme]);
-
   // on save to preview
   let handleSave = useCallback(() => {
     navigation.push("preview", {
@@ -85,7 +80,6 @@ const ScreenC = (props) => {
       css: getContentCSS(),
     });
   }, []);
-
   let handleHome = useCallback(() => {
     navigation.push("index");
   }, []);
@@ -158,15 +152,14 @@ const ScreenC = (props) => {
   let onPressAddImage = useCallback(() => {
     // insert URL
     richText.current?.insertImage(
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png",
-      "background: gray;"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png"
     );
     // insert base64
     // this.richText.current?.insertImage(`data:${image.mime};base64,${image.data}`);
   }, []);
 
   let onInsertLink = useCallback(() => {
-    // this.richText.current?.insertLink('Google', 'http://google.com');
+    // richText.current?.insertLink('Google', 'http://google.com');
     linkModal.current?.setModalVisible(true);
   }, []);
 
@@ -245,6 +238,17 @@ const ScreenC = (props) => {
   let dark = theme === "dark";
 
   const [value, setValue] = useState("");
+  const submitQues = () => {
+    Alert.alert(
+      "提交问题",
+      "内容...",
+      [
+        { text: "确认提交", onPress: () => console.log("提交成功") },
+        { text: "取消", onPress: () => console.log("输出取消") },
+      ],
+      { cancelable: true }
+    ); //可关闭;
+  };
   return (
     <>
       <InsertLinkModal
@@ -270,7 +274,11 @@ const ScreenC = (props) => {
             }}
             editable={true} //可编辑状态
           ></TextInput>
-          <TouchableOpacity activeOpacity={0.8} style={styles.subBtn}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.subBtn}
+            onPress={submitQues}
+          >
             <Text style={styles.textDefault}>提交问题</Text>
           </TouchableOpacity>
         </View>
@@ -288,7 +296,7 @@ const ScreenC = (props) => {
         <RichEditor
           // initialFocus={true}
           disabled={disabled}
-          editorStyle={contentStyle} 
+          editorStyle={contentStyle}
           ref={richText}
           style={styles.rich}
           useContainer={true}
@@ -333,7 +341,7 @@ const ScreenC = (props) => {
             actions.code,
             actions.heading1,
             "fontSize",
-          ]} 
+          ]}
           iconMap={{
             insertEmoji: phizIcon,
             [actions.foreColor]: ({ tintColor }) => (

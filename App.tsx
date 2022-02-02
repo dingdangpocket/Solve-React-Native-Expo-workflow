@@ -18,7 +18,8 @@ import FollowerList from "./screens/followerList/FollowerList"; //引入
 import MyFollowerList from "./screens/myfollowerList/MyfollowerList"; //引入
 import UserHomePage from "./screens/userHomePage/UserHomePage"; //引入
 import Search from "./screens/search/Search"; //引入
-
+import Anwser from "./screens/anwser/Anwser"; //引入
+import noteScreen from "./screens/note/NoteScreen"; //引入
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
@@ -105,56 +106,64 @@ export default function App() {
                 name="TheoryDescScreen"
                 component={TheoryDescScreen}
                 options={{
-                  title: '',
+                  title: '详情',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
               <Stack.Screen
                 name="ErrorDescScreen"
                 component={ErrorDescScreen}
                 options={{
-                  title: '',
+                  title: '详情',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
               <Stack.Screen
                 name="ExampleDescScreen"
                 component={ExampleDescScreen}
                 options={{
-                  title: '',
+                  title: '详情',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
               <Stack.Screen
                 name="QuestionDescScreen"
                 component={QuestionDescScreen}
                 options={{
-                  title: '',
+                  title: '详情',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
                <Stack.Screen
                 name="InfoScreen"
                 component={InfoScreen}
                 options={{
-                  title: '',
+                  title: '修改信息',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
                <Stack.Screen
                 name="FollowerList"
                 component={FollowerList}
                 options={{
-                  title: '',
+                  title: '关注者',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
                 <Stack.Screen
                 name="MyFollowerList"
                 component={MyFollowerList}
                 options={{
-                  title: '',
+                  title: '我的关注',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
                <Stack.Screen
                 name="UserHomePage"
                 component={UserHomePage}
                 options={{
-                  title: '',
+                  title: '详情',
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
                 <Stack.Screen
@@ -162,7 +171,25 @@ export default function App() {
                 component={Search}
                 options={{
                   title:'搜索',
-                  
+                  headerTitleStyle:{fontSize:15}
+                }}
+              />
+              <Stack.Screen
+                name="Anwser"
+                component={Anwser}
+                options={{
+                  title:'编辑答案',
+                  // headerStyle:{backgroundColor:"red"},
+                  headerTitleStyle:{fontSize:15}
+                }}
+              />
+                <Stack.Screen
+                name="noteScreen"
+                component={noteScreen}
+                options={{
+                  title:'笔记详情',
+                  // headerStyle:{backgroundColor:"red"},
+                  headerTitleStyle:{fontSize:15}
                 }}
               />
             </Stack.Navigator>

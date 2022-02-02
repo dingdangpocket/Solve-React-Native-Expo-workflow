@@ -125,7 +125,7 @@ const QuestionDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "我赞同你的观点",
           parentId: 0,
           anwser: "杨磊",
         },
@@ -159,7 +159,7 @@ const QuestionDescScreen = ({ navigation }) => {
         {
           id: 1,
           publisher: "黄海",
-          content: "你懂个⚽️",
+          content: "这篇文章质量非常高",
           parentId: 0,
           anwser: "杨磊",
         },
@@ -296,6 +296,37 @@ const QuestionDescScreen = ({ navigation }) => {
 
           <Text style={{ fontSize: 20 }}>Ajax中如何获得数据?</Text>
           <Markdown mergeStyle={true}>{copy}</Markdown>
+          
+          <View
+            style={{
+              width: MainWidth * 0.95,
+              height: 40,
+              backgroundColor: "white",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Anwser")}
+              style={{
+                backgroundColor: "rgba(151,47,151,1)",
+                width: 70,
+                height: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 30,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                }}
+              >
+                写回答
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           <View
             style={{
