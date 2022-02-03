@@ -14,13 +14,13 @@
   import {
     Dimensions,
     Appearance,
-    Button,
+
     Keyboard,
     KeyboardAvoidingView,
     Platform,
-    SafeAreaView,
+
     ScrollView,
-    StatusBar,
+   
     StyleSheet,
     Text,
     TextInput,
@@ -30,7 +30,7 @@
   } from "react-native";
   import {
     actions,
-    getContentCSS,
+ 
     RichEditor,
     RichToolbar,
   } from "react-native-pell-rich-editor";
@@ -268,11 +268,8 @@
           <View style={styles.questionHead}>
             <TextInput
               style={styles.input}
-              placeholder="请输入问题标题"
-              onChangeText={(value) => {
-                setValue(value);
-              }}
-              editable={true} //可编辑状态
+              placeholder="简明扼要指明问题容易获得高票solve"
+              editable={false} //可编辑状态
             ></TextInput>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -303,7 +300,7 @@
             initialHeight={400}
             enterKeyHint={"done"}
             containerStyle={{ borderRadius: 24 }}
-            placeholder={"添加问题的详细描述以便于快速获得解决方案"}
+            placeholder={""}
             initialContentHTML={initHTML}
             editorInitializedCallback={editorInitializedCallback}
             onChange={handleChange}

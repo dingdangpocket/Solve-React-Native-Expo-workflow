@@ -12,7 +12,6 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import Markdown from "react-native-markdown-renderer";
-
 const copy = `
 ### useState
 \`\`\` js
@@ -64,6 +63,66 @@ const fullName = useMemo(()=>{
     //返回的结果;
 },[firstName,lastName])
    //需要计算的属性;
+\`\`\`
+
+### useRef
+\`\`\` js
+import React,{useRef} from 'react'
+export default function Demo05() {
+    const myInput = useRef()
+    const myPassword = useRef()
+    const add = ()=>{
+        console.log(myInput.current.value);
+        console.log(myPassword.current.value);
+    }
+    return (
+        <div>
+            <div>
+                <input ref={myInput} type="text" placeholder="用户名"/>
+            </div>
+            <div>
+                <input ref=myPassword} type="text" placeholder="密码"/>
+            </div>
+            <div>
+                <button onClick={add} type="button">提交</button>
+            </div>
+        </div>
+    )
+}
+\`\`\`
+
+### useReducer
+\`\`\` js
+import React from 'react'
+import React,{useReducer,createRef} from "react"
+const reducer=(state,action)=>{//接收事件派发的action;
+     switch(action.type){
+       case "increment":
+       return state+1; 
+       case "decrement":
+       return state-1; 
+       case "inputCount":
+       return action.newCount;
+  }
+}
+function Counter(props) {
+    //返回一个数组,一个变量(初始值),一个方法;
+    const [count,dispatch]=useReducer(reducer,0)
+    //参数一接收一个函数,定义初始值为“0“,返回到数组中的count; 
+    const element=createRef()
+    return (
+    <div>
+      <h1>计数器:{count}</h1>
+      <button onClick={()=>dispatch(type:"increment")}></button>
+      <button onClick={()=>dispatch(type:"decrement")}></button>
+      <input type="text"ref={element} onBlur=
+      {()=>setCount({type:"inputCount",newCount:~~element.current.value})}/>
+      //~~转类型;
+    </div>
+    )
+}
+export default Counter
+//调用方法就修改变量
 \`\`\`
 `;
 

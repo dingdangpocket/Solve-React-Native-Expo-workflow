@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/test.png",
+        "foregroundImage": "./assets/images/logo1.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.niegang50.solve"

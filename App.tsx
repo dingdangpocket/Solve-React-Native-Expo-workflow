@@ -20,6 +20,7 @@ import UserHomePage from "./screens/userHomePage/UserHomePage"; //引入
 import Search from "./screens/search/Search"; //引入
 import Anwser from "./screens/anwser/Anwser"; //引入
 import noteScreen from "./screens/note/NoteScreen"; //引入
+import Code from "./screens/code/Code"; //引入
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
@@ -188,6 +189,15 @@ export default function App() {
                 component={noteScreen}
                 options={{
                   title:'笔记详情',
+                  // headerStyle:{backgroundColor:"red"},
+                  headerTitleStyle:{fontSize:15}
+                }}
+              />
+                <Stack.Screen
+                name="Code"
+                component={Code}
+                options={{
+                  title:'代码',
                   // headerStyle:{backgroundColor:"red"},
                   headerTitleStyle:{fontSize:15}
                 }}

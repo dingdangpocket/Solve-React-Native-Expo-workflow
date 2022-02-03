@@ -454,7 +454,7 @@ const ScreenB = ({ navigation }) => {
           <View style={styles.Line1}>
             <Image
               style={styles.avatorContainer}
-              source={require("../assets/images/123.jpg")}
+              source={require("../assets/images/test.jpg")}
               resizeMode="cover"
             ></Image>
             <View style={styles.infoCtr}>

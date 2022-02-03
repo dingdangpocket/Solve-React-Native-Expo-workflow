@@ -16,8 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ContentCard from "../../components/ContentCard";
 import Comment from "../../components/Comment";
 import Modal from "react-native-modal";
-const copy = `
-实际开发中,在面对一组数据流的获取时,我们需要使用Promise.all()方法;使用示例如下:
+const copy = `实际开发中,在面对一组数据流的获取时,我们需要使用Promise.all()方法;使用示例如下:
 \`\`\` js
 const go=()=>{
   const token=localStorage.getItem("token")

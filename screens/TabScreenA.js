@@ -17,7 +17,6 @@ import { setName, getData } from "../redux/actions";
 import { createStackNavigator } from "@react-navigation/stack"; //引入
 import ContentCard from "../components/ContentCard";
 const Stack = createStackNavigator();
-
 let MainHeight = Dimensions.get("window").height;
 let MainWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
@@ -99,7 +98,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(240,240,240)",
   },
 });
-
 const TabScreenA = ({ navigation }) => {
   const [name2, SetName2] = useState("");
   const { name, data } = useSelector((state) => state.userReducer);
@@ -270,35 +268,9 @@ const TabScreenA = ({ navigation }) => {
   ]);
   //测试数据;
 
-  // const [obj, setObj] = useState({
-  //   id: 0,
-  //   name: "zhanghai",
-  //   chid: [
-  //     {
-  //       name: "猴哥",
-  //     },
-  //     { name: "飞哥" },
-  //   ],
-  // });
-  // useEffect(() => {
-  //   console.log("obj发生了变化");
-  //   console.log(obj);
-  // }, [obj]);
-
-  // const add = () => {
-  //   console.log("事件");
-  //   setObj({
-  //     ...obj,
-  //     chid: [
-  //       {name:"猴哥"},
-  //       {name:"飞哥" },
-  //     ],
-  //   });
-  // };
   return (
     <View>
       <ScrollView horizontal={false}>
-        {/* <Button title="+" onPress={() => add()}></Button> */}
         <View style={styles.optionArea}>
           <ScrollView
             horizontal={true}
